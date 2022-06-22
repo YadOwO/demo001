@@ -7,15 +7,14 @@
 body{
     height: 100vh;
     /* 弹性布局 居中显示 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    
     /* 渐变背景 */
     background: linear-gradient(to top left,#ffe29f,#ffa99f,#ff719a);
     /* 溢出隐藏 */
     overflow: hidden;
 }
 .container{
+    margin-top: 300px;
     text-align: center;
     color: #fff;
 }

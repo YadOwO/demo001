@@ -7,14 +7,16 @@ import {
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
+import '../../App.less'
+import './index.css'
 const { Header, Sider, Content } = Layout;
 
-const Main = () => {
+const App = () => {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo" />
+        <div className="logo" ><h3 className='logo2'>图书管理系统</h3></div>
         <Menu
           theme="dark"
           mode="inline"
@@ -65,4 +67,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default App;

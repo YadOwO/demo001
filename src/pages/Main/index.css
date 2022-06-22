@@ -1,0 +1,15 @@
+.ant-layout-header {
+    background-color: #ff719a;
+}
+.ant-layout {
+    height: 1000px;
+}
+.logo {
+    background-color: #001529;
+    height: 70px;
+}
+.logo2 {
+    color: rgba(255, 255, 255, 0.65);
+    padding-top:20px;
+    padding-left: 30px;
+}
