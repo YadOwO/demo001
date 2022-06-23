@@ -1,0 +1,82 @@
+@import url(font_cqbiizu5og9/iconfont.css);
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+}
+
+body {
+    background-color: rgb(209, 213, 219)!important;
+    height: 100vh;
+    align-items: center;
+}
+
+.shell {
+    float: left;
+    width: 100px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(17, 24, 39);
+    transition: .3s;
+    overflow: hidden;
+}
+
+.box {
+    height: 10%;
+    width: 85%;
+    margin: 9px;
+    border-radius: 5px;
+    position: relative;
+    transition: .3s;
+    color: rgb(160, 160, 175);
+}
+.box i {
+    font-size: 60px;
+    margin: 7px 0 0 13px;
+}
+
+.box:nth-child(1)::before,
+.box:nth-child(6)::before{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: rgb(55, 65, 81);
+    position: absolute;
+    bottom: -10px;
+}
+
+.box span{
+    position: relative;
+    top: -18px;
+    left: 30px;
+    font: 500 20px '';
+    opacity: 0;
+    transition: .1s;
+}
+.shell:hover{
+    width: 300px;
+}
+.box:hover{
+    background-color: rgb(55, 65, 81);
+}
+.shell:hover span{
+    opacity: 1;
+}
+.box:hover{
+    color: #fff;
+}
+
+.shell:nth-child(1) {
+    background-color: rgb(243, 244, 246);
+}
+.shell:nth-child(1) .box:hover{
+    background-color: rgb(209, 213, 219);
+    color: rgb(241, 159, 159);
+}
+.shell:nth-child(1) .box{
+    color: #000;
+}

@@ -6,9 +6,9 @@ import routers from './routers'
 export default function App() {
   const el = useRoutes(routers)
   return (
-    <div>
+    <>
         {el}
-    </div>
+    </>
   )
 }
 // import React from 'react';
