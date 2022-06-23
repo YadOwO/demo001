@@ -1,24 +1,17 @@
 import {
   Button,
   // Cascader,
-  Checkbox,
   DatePicker,
   Form,
   Input,
   InputNumber,
   message,
 } from 'antd';
-import { useState } from 'react';
 import '../../App.less'
 // const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
 const FormDisabledDemo = () => {
-  const [componentDisabled, setComponentDisabled] = useState(true);
-
-  const onFormLayoutChange = ({ disabled }) => {
-    setComponentDisabled(disabled);
-  };
 
   function addBook(){
      //1 创建可以发送ajax请求的XMLHttpReqeust对象
@@ -64,11 +57,6 @@ const FormDisabledDemo = () => {
         span: 14,
       }}
       layout="horizontal"
-      initialValues={{
-        disabled: componentDisabled,
-      }}
-      onValuesChange={onFormLayoutChange}
-      disabled={componentDisabled}
     >
       <Form.Item label="书号">
         <Input />
@@ -94,14 +82,14 @@ const FormDisabledDemo = () => {
       <Form.Item label="备注">
         <TextArea rows={4} />
       </Form.Item>
-      <Form.Item label="Form disabled" name="disabled" valuePropName="checked">
+      {/* <Form.Item label="Form disabled" name="disabled" valuePropName="checked">
         <Checkbox>disabled</Checkbox>
-      </Form.Item>
+      </Form.Item> */}
       {/* <Form.Item label="Switch" valuePropName="checked">
         <Switch />
       </Form.Item> */}
-      <Form.Item label="Button">
-        <Button onClick={addBook}>Button</Button>
+      <Form.Item label="提交">
+        <Button type="primary" onClick={addBook}>提交</Button>
       </Form.Item>
     </Form>
   );
