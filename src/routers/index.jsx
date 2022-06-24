@@ -7,6 +7,7 @@ import { Navigate } from "react-router-dom";
 import Erweima from "../pages/Erweima";
 import BookAction from "../pages/BookAction";
 import Echart from "../pages/Echart";
+import Bookuse from "../pages/Bookuse";
 
 export default [
     {
@@ -43,6 +44,10 @@ export default [
         {
             path:'echart',
             element:<Echart/>
+        },
+        {
+            path:'bookuse',
+            element:<Bookuse/>
         }
         ]
     }
