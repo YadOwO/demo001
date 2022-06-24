@@ -1,4 +1,5 @@
 import { Space, Table } from 'antd';
+import axios from 'axios';
 import React from 'react';
 import '../../App.less'
 
@@ -19,8 +20,8 @@ const App = () => {
     },
     {
       title: '书名',
-      dataIndex: 'book_name',
-      key: 'book_name',
+      dataIndex: 'book_name1',
+      key: 'book_name1',
       align:'center',
       render: (text) => <a>{text}</a>,
     },
@@ -55,30 +56,41 @@ const App = () => {
   ];
   const [num ,setNum] = React.useState([])
   function returnBook(e){
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET','useraction/returnBook?num='+e.target.dataset.record);
-    // xhr.open('GET','http://localhost:4356/yado?num='+e.target.dataset.record);
-    xhr.send(e.target.dataset.record);
-    console.log(e.target.dataset.record);
-    if(xhr.readyState===4){
-      if(xhr.readyState===4){
-        setTimeout(() => {
-        let serverResponseData = xhr.responseText;
-        let jsObj = JSON.parse(serverResponseData);
-        console.log(jsObj);
-        // setNum(jsObj)
-        if (jsObj.code===0){
-          let data = jsObj.data;
-          setNum(data)
-          console.log(num);
-        }else{
-          alert(jsObj.msg);
+    //  axios.get('http://localhost:4356/yado',
+     axios.get('/useraction/returnBook',
+     {
+       params:{
+         num:e.target.dataset.record
+       }
+     }).then(value=>{
+       console.log(value);
+     })
+     setTimeout(() => {
+      let xhr= new XMLHttpRequest();
+      xhr.open('GET', '/useraction/queryBorrow');
+      // xhr.open('GET', 'http://localhost:4356/yado');
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState===4){
+          let serverResponseData = xhr.responseText;
+          let jsObj = JSON.parse(serverResponseData);
+          console.log(jsObj);
+          // setNum(jsObj)
+          if (jsObj.code===0){
+            let data = jsObj.data;
+            setNum(data)
+            // console.log(userData);
+          }else{
+            alert(jsObj.msg);
+          }
         }
-        return <Table style={{width: '100%'}} columns={columns} dataSource={num} />;
-        },100)
       }
-    }
-  }
+      xhr.send(null);
+      console.log(e.target.dataset.record);
+      return <Table columns={columns} dataSource={num} />;
+      },100)
+}
+    
+  
 
   React.useEffect(() => {
     let xhr= new XMLHttpRequest();

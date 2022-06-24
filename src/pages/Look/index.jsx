@@ -61,7 +61,8 @@ const App = () => {
       align:'center',
       render: (_, record) => (
         <Space size="middle">
-          <a data-record={record.book_num} onClick={deleteBook}>删除 {record.book_name}</a>
+          <a data-record={record.book_num} onClick={deleteBook}>删除 </a>
+          <a data-record={record.book_num} onClick={aorrowBook}>借阅 </a>
         </Space>
       ),
     },
@@ -102,6 +103,43 @@ const App = () => {
       return <Table columns={columns} dataSource={bookData} />;
       },100)
   }
+  
+function aorrowBook(e){
+  axios.get('/useraction/deleteBook',//修改为后端借阅端口
+  // axios.get('http://localhost:4356/yado',
+  {
+    params:{
+      book_num:e.target.dataset.record
+    }
+  }).then(value=>{
+    console.log(value);
+    console.log(e.target.dataset.record);
+  })
+  setTimeout(() => {
+    let xhr= new XMLHttpRequest();
+    xhr.open('GET', '/useraction/queryBook');
+    // xhr.open('GET', 'http://localhost:4356/yado');
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState===4){
+        let serverResponseData = xhr.responseText;
+        let jsObj = JSON.parse(serverResponseData);
+        console.log(jsObj);
+        // setData(jsObj)
+        if (jsObj.code===0){
+          let data = jsObj.data;
+          setData(data)
+          console.log(bookData);
+        }else{
+          alert(jsObj.msg);
+        }
+      }
+    }
+    xhr.send(null);
+    console.log(e.target.dataset.record);
+    return <Table columns={columns} dataSource={bookData} />;
+    },100)
+}
+
   React.useEffect(() => {
     let xhr= new XMLHttpRequest();
       xhr.open('GET', '/useraction/queryBook');
