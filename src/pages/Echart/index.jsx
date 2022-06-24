@@ -1,162 +1,75 @@
-import { Scene, LineLayer, PolygonLayer } from '@antv/l7';
-import { GaodeMap } from '@antv/l7-maps';
-import React from 'react'
-import './index.css'
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  message
+} from 'antd';
+import { useState } from 'react';
+import '../../App.less'
+const { RangePicker } = DatePicker;
 
 
-export default function echart() {
-  setTimeout(() => {  
-  const mapWrap = document.getElementById('map');
-  console.log(mapWrap);
-  const { left, top } = mapWrap.getBoundingClientRect();
-  const scene = new Scene({
-  id: 'map',
-  map: new GaodeMap({
-    center: [ 110, 30 ],
-    zoom: 2.5,
-    style: 'dark',
-    dragEnable: false
-  })
-});
-const emptyFeatureCollextion = {
-  type: 'FeatureCollection',
-  features: []
-};
+const FormDisabledDemo = () => {
+  
+  function JieShu(){
+    //1 创建可以发送ajax请求的XMLHttpReqeust对象
+    let xmlHttpRequest = new XMLHttpRequest();
+    //2.调用相关的方法发送ajax请求
+    //用js获得文本框中输入的用户和密码附加在url中后面，格式
+    let input = document.querySelectorAll('input');
+    let url = "/useraction/borrowBook?num="+input[0].value+"&book_num1="+input[1].value
+    +"&username1="+input[2].value+"&borrow_date="+input[3].value
+    +"&return_date="+input[4].value
+    xmlHttpRequest.open("get",url);
 
-function getSelectData(data) {
-  return [
-    Math.min(data[0], data[2]), // x1
-    Math.min(data[1], data[3]), // y1
-    Math.max(data[0], data[2]), // x2
-    Math.max(data[1], data[3]) // y2
-  ];
-};
+    xmlHttpRequest.onreadystatechange = function () {
+      if (xmlHttpRequest.readyState===4){
 
-scene.on('loaded', () => {
-  fetch('https://gw.alipayobjects.com/os/bmw-prod/d6da7ac1-8b4f-4a55-93ea-e81aa08f0cf3.json')
-    .then(res => res.json())
-    .then(data => {
-      const chinaPolygonLayer = new PolygonLayer({
-        autoFit: true
-      })
-        .source(data)
-        .color('name', [
-          '#ce83a7',
-          '#ac6286',
-          '#733a56',
-          '#622241',
-          '#4e092a'
-        ])
-        .shape('fill');
+          let serverResponseData = xmlHttpRequest.responseText;
 
-      //  图层边界
-      const chinaBorderLineLayer = new LineLayer({
-        zIndex: 2
-      })
-        .source(data)
-        .color('#ff719a')
-        .size(0.6);
-
-      const selectLineLayer = new LineLayer({
-        zIndex: 2
-      })
-        .source(emptyFeatureCollextion)
-        .color('#fff')
-        .size(2);
-
-      const boxLayer = new PolygonLayer({})
-        .source(emptyFeatureCollextion)
-        .color('#fff')
-        .size(2)
-        .style({
-          opacity: 0.6,
-          lineType: 'dash',
-          dashArray: [ 5, 5 ]
-        })
-        .shape('line');
-
-      chinaPolygonLayer.on('unclick', () => {
-        selectLineLayer.setData(emptyFeatureCollextion);
-      });
-
-      scene.addLayer(chinaPolygonLayer);
-      scene.addLayer(chinaBorderLineLayer);
-      scene.addLayer(selectLineLayer);
-      scene.addLayer(boxLayer);
-
-      let startLngLat = { lng: 0, lat: 0, x: 0, y: 0 };
-      const selectNames = '';
-
-      scene.on('dragstart', e => {
-        selectLineLayer.setData(emptyFeatureCollextion);
-        startLngLat = {
-          ...e.lngLat,
-          x: e.target.x,
-          y: e.target.y
-        };
-      });
-
-      scene.on(
-        'dragging',
-        e => {
-          const {
-            lng: startLng,
-            lat: startLat
-
-          } = startLngLat;
-          const { lng: endLng, lat: endLat } = e.lngLat;
-
-          boxLayer.setData({
-            type: 'FeatureCollection',
-            features: [{
-              type: 'Feature',
-              properties: {},
-              geometry: {
-                type: 'Polygon',
-                coordinates: [
-                  [
-                    [ startLng, endLat ],
-                    [ endLng, endLat ],
-                    [ endLng, startLat ],
-                    [ startLng, startLat ],
-                    [ startLng, endLat ]
-                  ]
-                ]
-              }
-            }]
-          });
-        }
-      );
-
-      scene.on('dragend', e => {
-        const {
-          x: startX,
-          y: startY
-        } = startLngLat;
-        const { x: endX, y: endY } = e.target;
-        boxLayer.setData(emptyFeatureCollextion);
-        const selectData = [ startX - left, startY - top, endX - left, endY - top ];
-        chinaPolygonLayer.boxSelect(getSelectData(selectData),
-          features => {
-            const currentSelectNames = features
-              .map(item => item.properties.name)
-              .join(',');
-            if (currentSelectNames !== selectNames) {
-              selectLineLayer.setData({
-                type: 'FeatureCollection',
-                features: [ ...features ]
-              });
-            }
+          let jsObj = JSON.parse(serverResponseData);
+          if (jsObj.code===0){
+            // navigate('/main')
+            message.success("添加成功！")
+          }else{
+            message.error(jsObj.msg);
           }
-        );
-
-      });
-    });
-});},100)
-
+      }
+  }
+//5发送请送
+  xmlHttpRequest.send(null);
+  }
 
   return (
-    <div id='map'></div>
-  )
-}
+    <Form
+      labelCol={{
+        span: 4,
+      }}
+      wrapperCol={{
+        span: 14,
+      }}
+      layout="horizontal"
+    >
+      <Form.Item label="借书单号">
+        <Input />
+      </Form.Item>
+      <Form.Item label="书号">
+        <Input />
+      </Form.Item>
+      <Form.Item label="借书人">
+        <Input />
+      </Form.Item>
+      <Form.Item label="借书时间">
+        <RangePicker />
+      </Form.Item>
+      <Form.Item label="提交">
+        <Button onClick={JieShu}>一键借书</Button>
+      </Form.Item>
+    </Form>
+  );
+};
 
+export default () => {
+  return <FormDisabledDemo />;
+}

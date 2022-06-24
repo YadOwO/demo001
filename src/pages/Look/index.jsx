@@ -62,7 +62,6 @@ const App = () => {
       render: (_, record) => (
         <Space size="middle">
           <a data-record={record.book_num} onClick={deleteBook}>删除 </a>
-          <a data-record={record.book_num} onClick={aorrowBook}>借阅 </a>
         </Space>
       ),
     },
@@ -105,7 +104,7 @@ const App = () => {
   }
   
 function aorrowBook(e){
-  axios.get('/useraction/deleteBook',//修改为后端借阅端口
+  axios.get('/useraction/borrowBook',//修改为后端借阅端口
   // axios.get('http://localhost:4356/yado',
   {
     params:{
