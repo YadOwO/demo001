@@ -11,8 +11,13 @@ const App = () => {
       let username= document.getElementById("basic_username").value;
       let pwd= document.getElementById("basic_password").value;
       let realname = document.querySelector('#basic_realname').value;
+      let age = document.querySelector('#basic_age').value;
+      let sex = document.querySelector('#basic_sex').value;
       let phonenumber = document.querySelector('#basic_mobilephone').value;
-      let url = "/useraction/register?username="+username +"&pwd="+pwd+"&realName="+realname+"&phonenumber="+phonenumber;
+      let email = document.querySelector('#basic_email').value;
+      let url = "/useraction/register?username="+username +"&pwd="+pwd
+      +"&realName="+realname+"&age="+age+"&sex="+sex
+      +"&phonenumber="+phonenumber+"&email="+email;
       xmlHttpRequest.open("get",url);//建立对服务器的连接
 
 
@@ -97,6 +102,30 @@ const App = () => {
         <Input />
       </Form.Item>
       <Form.Item
+        label="年龄"
+        name="age"
+        rules={[
+          {
+            required: true,
+            message: '请输入你的性别！',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        label="性别"
+        name="sex"
+        rules={[
+          {
+            required: true,
+            message: '请输入你的性别！',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
         label="电话号码"
         name="mobilephone"
         rules={[
@@ -108,7 +137,18 @@ const App = () => {
       >
         <Input />
       </Form.Item>
-
+      <Form.Item
+        label="邮箱"
+        name="email"
+        rules={[
+          {
+            required: true,
+            message: '请输入你的邮箱！',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
       <Form.Item
         wrapperCol={{
           offset: 8,

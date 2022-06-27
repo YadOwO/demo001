@@ -15,12 +15,12 @@ http
           [...Array(10)].map((v, i) => {
             return {
               key:v,
-              book_num: (Math.random() * i).toString(16).slice(-8),
-              book_name: `yado-${i}`,
-              book_writer: `yado-${i}-yado`,
-              book_price:(Math.random() * i).toString(16).slice(-8),
-              book_sum:`${i}`,
-              return_book_leftdate:`${i}`
+              username: (Math.random() * i).toString(16).slice(-8),
+              realName: `yado-${i}`,
+              age: `yado-${i}-yado`,
+              password:(Math.random() * i).toString(16).slice(-8),
+              sex:`${i}`,
+              mobilePhone:`${i}`
             }
           }),
         ),

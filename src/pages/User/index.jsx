@@ -20,6 +20,18 @@ const App = () => {
       key: 'realName',
     },
     {
+      title: '年龄',
+      dataIndex: 'age',
+      align:'center',
+      key: 'age',
+    },
+    {
+      title: '性别',
+      dataIndex: 'sex',
+      align:'center',
+      key: 'sex',
+    },
+    {
       title: '密码',
       dataIndex: 'password',
       align:'center',
@@ -30,6 +42,13 @@ const App = () => {
       dataIndex: 'mobilePhone',
       align:'center',
       key: 'mobilePhone',
+    },
+    {
+      title: '邮箱',
+      dataIndex: 'email',
+      key: 'email',
+      align:'center',
+      render: (text) => <a>{text}</a>,
     },
     {
       title: '操作',
